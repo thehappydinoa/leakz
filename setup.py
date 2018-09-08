@@ -10,7 +10,7 @@ with open(path.join(here, "README.rst"), encoding="utf-8") as f:
 
 setup(
     name='leakz',
-    version='1.2',
+    version='1.2.1',
     packages=['leakz'],
     url='https://github.com/thehappydinoa/leakz',
     license='MIT',
