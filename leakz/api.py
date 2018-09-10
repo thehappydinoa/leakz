@@ -2,12 +2,19 @@ import json
 
 import requests
 
+from .exceptions import *
+
 
 def api_request(path: str, base_url: str = "https://lea.kz") -> dict:
     try:
-        return requests.get(base_url + path).json()
-    except (requests.exceptions.RequestException, json.decoder.JSONDecodeError):
-        return dict()
+        response = requests.get(base_url + path)
+        if response.status_code == 404:
+            raise LeakzNotLeaked
+        return response.json()
+    except requests.exceptions.RequestException:
+        raise LeakzRequestException
+    except json.decoder.JSONDecodeError as error:
+        raise LeakzJSONDecodeException
 
 
 def leaked_mail(email_address: str) -> list:
@@ -21,5 +28,5 @@ def password_from_hash(hash: str) -> str:
     return api_request("/api/hash/" + hash).get("password")
 
 
-def hash_from_password(password) -> dict:
+def hashes_from_password(password) -> dict:
     return api_request("/api/password/" + password)
