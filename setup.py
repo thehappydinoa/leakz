@@ -10,7 +10,7 @@ with open(path.join(here, "README.rst"), encoding="utf-8") as f:
 
 setup(
     name='leakz',
-    version='1.3.0',
+    version='1.3.2',
     packages=['leakz'],
     url='https://github.com/thehappydinoa/leakz',
     license='MIT',
@@ -18,6 +18,9 @@ setup(
     author_email='thehappydinoa@gmail.com',
     description='Python API wrapper for lea.kz',
     long_description=long_description,
+    install_requires=[
+        "requests"
+    ],
 
     classifiers=[
         #   3 - Alpha

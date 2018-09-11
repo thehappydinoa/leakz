@@ -5,7 +5,7 @@ import requests
 from .exceptions import *
 
 
-def api_request(path: str, base_url: str = "https://lea.kz") -> dict:
+def api_request(path, base_url="https://lea.kz"):
     try:
         response = requests.get(base_url + path)
         if response.status_code == 404:
@@ -17,16 +17,16 @@ def api_request(path: str, base_url: str = "https://lea.kz") -> dict:
         raise LeakzJSONDecodeException
 
 
-def leaked_mail(email_address: str) -> list:
+def leaked_mail(email_address):
     response = api_request("/api/mail/" + email_address).get("leaked")
     if response:
         return response.split(', ')
     return list()
 
 
-def password_from_hash(hash: str) -> str:
+def password_from_hash(hash):
     return api_request("/api/hash/" + hash).get("password")
 
 
-def hashes_from_password(password) -> dict:
+def hashes_from_password(password):
     return api_request("/api/password/" + password)
