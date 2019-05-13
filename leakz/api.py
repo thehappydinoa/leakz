@@ -1,8 +1,11 @@
-import json
-
 import requests
 
 from .exceptions import *
+
+try:
+    from json.decoder import JSONDecodeError
+except ImportError:
+    JSONDecodeError = ValueError
 
 
 def api_request(path, base_url="https://lea.kz"):
@@ -13,7 +16,7 @@ def api_request(path, base_url="https://lea.kz"):
         return response.json()
     except requests.exceptions.RequestException:
         raise LeakzRequestException
-    except json.decoder.JSONDecodeError as error:
+    except JSONDecodeError:
         raise LeakzJSONDecodeException
 
 
